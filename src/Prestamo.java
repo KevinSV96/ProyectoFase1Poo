@@ -4,14 +4,13 @@ import java.time.temporal.ChronoUnit;
 public class Prestamo {
     private int id;
     private Ejemplar ejemplar;
-    private Usuario usuario; // Usa la clase Usuario de tu compañero
+    private Usuario usuario; 
     private LocalDate fechaPrestamo;
     private LocalDate fechaDevolucionPrevista;
     private LocalDate fechaDevolucionReal;
     private String estado; // "ACTIVO", "DEVUELTO", "MORA"
     private double moraAcumulada;
     
-    // Constructor adaptado
     public Prestamo(Ejemplar ejemplar, Usuario usuario) {
         this.ejemplar = ejemplar;
         this.usuario = usuario;
@@ -22,7 +21,7 @@ public class Prestamo {
     }
     
     private LocalDate calcularFechaDevolucion() {
-        // ADAPTACIÓN: usa los nombres de rol de tu compañero
+        
         int diasPrestamo = switch(usuario.getTipoUsuario()) {
             case "Maestro" -> 15;    // Profesores: 15 días
             case "Estudiante" -> 7;  // Alumnos: 7 días
@@ -32,32 +31,26 @@ public class Prestamo {
         return fechaPrestamo.plusDays(diasPrestamo);
     }
     
-    // Método clave para validaciones - ADAPTADO
     public boolean usuarioPuedePrestar() {
-        // Usa los métodos exactos de tu compañero
         return usuario.getEstadoCuenta().equals("Activo") && 
                !usuarioTieneMora() &&
                !usuarioAlcanzoLimite();
     }
     
     private boolean usuarioTieneMora() {
-        // Esto se conectará con el compañero 4
         return usuario.getEstadoCuenta().equals("Bloqueado");
     }
     
     private boolean usuarioAlcanzoLimite() {
-        // Lógica simplificada - puedes ajustar
         int limite = switch(usuario.getTipoUsuario()) {
             case "Maestro" -> 5;
             case "Estudiante" -> 3;
             case "Admin" -> 10;
             default -> 1;
         };
-        // Aquí necesitarías acceso a la lista de préstamos activos del usuario
         return false; // Placeholder
     }
     
-    // Getters y Setters (mantener igual)
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     
@@ -76,7 +69,6 @@ public class Prestamo {
     public String getEstado() { return estado; }
     public double getMoraAcumulada() { return moraAcumulada; }
     
-    // Métodos de negocio (mantener igual)
     public boolean estaVencido() {
         return estado.equals("ACTIVO") && LocalDate.now().isAfter(fechaDevolucionPrevista);
     }

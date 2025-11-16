@@ -1,6 +1,6 @@
 public class Usuario {
 
-// Datos
+    // Datos
     private int idUsuario;
     private String nombreCompleto;
     private String correo;
@@ -48,27 +48,26 @@ public class Usuario {
     public boolean asignarRol(String nuevoRol, Usuario usuarioDeControl) {
 
         // Validación importantísima ¿Tienes los permisos?
-        if (usuarioDeControl.getTipoUsuario().equals("Admin")) {
+        if (usuarioDeControl.getTipoUsuario().equals("Admin")) { // Se usa "Admin" para la validación
 
             // Si sos el administrador, validaremos que el nuevo rol sea uno de los 3 que existen
             if (nuevoRol.equals("Admin") || nuevoRol.equals("Maestro") || nuevoRol.equals("Estudiante")) {
 
-                this.tipoUsuario = nuevoRol; // el cambio ah sido realizado
+                this.tipoUsuario = nuevoRol; // el cambio ha sido realizado
                 System.out.println("[OK] Rol de " + this.nombreCompleto + " actualizado a " + nuevoRol);
                 return true;
             } else {
                 // El Administrator intentó poner un rol que no existe
-                System.out.println("X ERROR: El sistema solo acepta los roles Admin, Maestro y Alumno '" 
+                System.out.println("ERROR: El sistema solo acepta los roles Admin, Maestro y Estudiante'"
                         + nuevoRol + "' no es válido.");
-            } else {
-                return false;
+                return false; // Retorna false si el rol no es válido
             }
-
-           
-            // **Alerta de seguridad** **La persona no es el Administrator**
-            System.out.println("Acceso Denegado: Solo un Administrator puede cambiar los roles.");
-            return false;
+        } else {
+            // **Alerta de seguridad** **La persona no es el Administrator
+            System.out.println("Acceso Denegado: Solo un Administrator puede cambiar los roles");
+            return false; // Retorna false si no tiene permisos
         }
+
     }
 
     /**
@@ -80,8 +79,7 @@ public class Usuario {
 
         // validación de la clave: ¿Tienes los permisos?
         if (usuarioDeControl.getTipoUsuario().equals("Admin")) {
-
-            this.contrasena = nuevaClave; // asignará una clave temporal **Nota:en la vida real tiene que ir encriptado**
+             this.contrasena = nuevaClave; // asignará una clave temporal **Nota:en la vida real tiene que ir encriptado**
             System.out.println("Contraseña de " + this.nombreCompleto + " restablecida");
             return true;
         } else {

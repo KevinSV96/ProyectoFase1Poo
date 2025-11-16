@@ -1,0 +1,58 @@
+                |--------------------------|
+                │         USUARIO          │
+                │--------------------------│
+                │idUsuario                 │
+                │ nombreCompleto           │
+                │ correo                   │
+                │ contrasena               │
+                │ tipoUsuario              │
+                │ estadoCuenta             │
+                |-------------|------------|
+                            1 |
+                              |
+                              |N
+               |--------------------------------|
+               │           PRESTAMO             │
+               │--------------------------------│
+               │ id                             │
+               │ idUsuario                      │
+               │ idEjemplar                     │
+               │ fechaPrestamo                  │
+               │ fechaDevolucionPrevista        │
+               │ fechaDevolucionReal            │
+               │ estado                         │
+               │ moraAcumulada                  │
+               |--------------|-----------------|
+                            N |
+                              |
+                              |1
+          |------------------------------------------|
+          │                 EJEMPLAR                 │
+          │------------------------------------------│
+          │ idEjemplar                               │
+          │ idDocumento                              │
+          │ codigoEjemplar                           │
+          │ estado                                   │
+          |-------------------|----------------------|
+                            N |
+                              |
+                              |1
+         |-------------------------------------------|
+         │                 DOCUMENTO                 │
+         │-------------------------------------------│
+         │ idDocumento                               │
+         │ titulo                                    │
+         │ autor                                     │
+         │ anio                                      │
+         │ editorial                                 │
+         │ categoria                                 │
+         │ isbn                                      │
+         │ idTipo                                    │
+         │ descripcion                               │
+         │ ubicacion                                 │
+         |-------------------------------------------|
+
+
+
+
+

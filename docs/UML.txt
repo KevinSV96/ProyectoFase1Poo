@@ -1,24 +1,25 @@
                 |---------------------------------------------------|
-                │                       USUARIO                     │
+                │                      USUARIO                      │
                 │---------------------------------------------------│
-                │ -idUsuario: String                                │
-                │ -nombreCompleto: String                           │
-                │ -correo: String                                   │
-                │ -contrasena: String                               │
-                │ -tipoUsuario: String                              │
-                │ -estadoCuenta: String                             │
+                │ - idUsuario: int                                  │
+                │ - nombreCompleto: String                          │
+                │ - correo: String                                  │
+                │ - contrasena: String                              │
+                │ - tipoUsuario: String                             │
+                │ - estadoCuenta: String                            │
                 |---------------------------------------------------|
+                | + Usuario(id, nombre, mail, clave, tipo)          |
                 | + getTipoUsuario(): String                        |
                 | + getEstadoCuenta(): String                       |
-                | + setEstadoCuenta(String)                         |
+                | + setEstadoCuenta(String): void                   |
                 | + asignarRol(String, Usuario): boolean            |
                 | + restablecerContrasena(String, Usuario): boolean |
-                |-----------------------|---------------------------|                   
-                                      1 |
-                                        |
-                                       |N
+                |---------------------------------------------------|
+                                      1|
+                                       |
+                                       |n
                |--------------------------------------------------|
-               │                      PRESTAMO                    │
+               │                     PRESTAMO                     │
                │--------------------------------------------------│
                | - id: int                                        |
                | - ejemplar: Ejemplar                             |
@@ -30,49 +31,114 @@
                | - moraAcumulada: double                          |
                |--------------------------------------------------|
                | + Prestamo(Ejemplar, Usuario)                    |
-               | - calcularFechaDevolucion(): LocalDate (private) |
-               | + usuarioPuedePrestar(): boolean                 |
-               | - usuarioTieneMora(): boolean                    |
-               | - usuarioAlcanzoLimite(): boolean                |
-               | + getId(): int                                   |
                | + setId(int): void                               |
+               | + setFechaDevolucionReal(LocalDate): void        |
+               | + setMoraAcumulada(double): void                 |
                | + getEjemplar(): Ejemplar                        |
                | + getUsuario(): Usuario                          |
                | + getFechaPrestamo(): LocalDate                  |
                | + getFechaDevolucionPrevista(): LocalDate        |
                | + getFechaDevolucionReal(): LocalDate            |
-               | + setFechaDevolucionReal(LocalDate): void        |
                | + getEstado(): String                            |
                | + getMoraAcumulada(): double                     |
                | + estaVencido(): boolean                         |
                | + diasVencido(): long                            |
-               | + toString(): String                             |                                 
-               |------------------------|-------------------------|
-                            N |
-                              |
-                              |1
+               | + toString(): String                             |
+               | - calcularFechaDevolucion(): LocalDate           |
+               | - ejemplarDisponible(): boolean                  |
+               | - prestarEjemplar(): void                        |
+               | - devolverEjemplar(): void                       |
+               |--------------------------------------------------|
+                             1 |
+                                |
+                                |1
           |------------------------------------------|
           │                 EJEMPLAR                 │
           │------------------------------------------│
-          │ -idEjemplar: String                      │
-          │ -idDocumento: String                     │
-          │ -codigoEjemplar: String                  │
-          │ -estado: String                          │
-          |-------------------|----------------------|
-                            N |
-                              |
-                              |1
+          │ - idEjemplar: String                     │
+          │ - idDocumento: String                    │
+          │ - codigoEjemplar: String                 │
+          │ - estado: String                         │
+          │------------------------------------------│
+          │ + Ejemplar()                             │
+          │ + Ejemplar(idE, idDoc, codigo, estado)   │
+          │ + getIdEjemplar(): String                │
+          │ + setIdEjemplar(String): void            │
+          │ + getIdDocumento(): String               │
+          │ + setIdDocumento(String): void           │
+          │ + getCodigoEjemplar(): String            │
+          │ + setCodigoEjemplar(String): void        │
+          │ + getEstado(): String                    │
+          │ + setEstado(String): void                │
+          |------------------------------------------|
+                             1 |
+                                |
+                                |1
          |-------------------------------------------|
          │                 DOCUMENTO                 │
          │-------------------------------------------│
-         │ -idDocumento: String                      │
-         │ -titulo: String                           │
-         │ -autor: String                            │
-         │ -anio: int                                │
-         │ -editorial: String                        │
-         │ -categoria: String                        │
-         │ -isbn: String                             │
-         │ -idTipo: int                              │
-         │ -descripcion: String                      │
-         │ -ubicacion: String                        │
+         │ - idDocumento: String                     │
+         │ - titulo: String                          │
+         │ - autor: String                           │
+         │ - anio: int                               │
+         │ - editorial: String                       │
+         │ - categoria: String                       │
+         │ - isbn: String                            │
+         │ - idTipo: int                             │
+         │ - descripcion: String                     │
+         │ - ubicacion: String                       │
+         │-------------------------------------------│
+         │ + Documento()                             │
+         │ + Documento(idDoc, titulo, autor, ...)    │
+         │ + getIdDocumento(): String                │
+         │ + setIdDocumento(String): void            │
+         │ + getTitulo(): String                     │
+         │ + setTitulo(String): void                 │
+         │ + getAutor(): String                      │
+         │ + setAutor(String): void                  │
+         │ + getAnio(): int                          │
+         │ + setAnio(int): void                      │
+         │ + getEditorial(): String                  │
+         │ + setEditorial(String): void              │
+         │ + getCategoria(): String                  │
+         │ + setCategoria(String): void              │
+         │ + getIsbn(): String                       │
+         │ + setIsbn(String): void                   │
+         │ + getIdTipo(): int                        │
+         │ + setIdTipo(int): void                    │
+         │ + getDescripcion(): String                │
+         │ + setDescripcion(String): void            │
+         │ + getUbicacion(): String                  │
+         │ + setUbicacion(String): void              │
+         |-------------------------------------------|
+
+         |-------------------------------------------|
+         │              GESTORPRESTAMOS              │
+         │-------------------------------------------│
+         │ - prestamos: List<Prestamo>               │
+         │ - contadorId: int                         │
+         │-------------------------------------------│
+         │ + GestorPrestamos()                       │
+         │ + realizarPrestamo(Ejemplar, Usuario):    │
+         │   Prestamo                                │
+         │ + devolverPrestamo(int): void             │
+         │ + buscarPrestamo(int): Prestamo           │
+         │ + getPrestamosActivos(): List<Prestamo>   │
+         │ + getTodosLosPrestamos(): List<Prestamo>  │
+         │ + getPrestamosPorUsuario(int):            │
+         │   List<Prestamo>                          │
+         │ - estaDisponible(Ejemplar): boolean       │
+         │ - prestarEjemplar(Ejemplar): void         │
+         │ - devolverEjemplar(Ejemplar): void        │
+         |-------------------------------------------|
+
+         |-------------------------------------------|
+         │              CALCULADORAMORA              │
+         │-------------------------------------------│
+         │ - moraPorAnio: Map<Integer, Double>       │
+         │-------------------------------------------│
+         │ + CalculadoraMora()                       │
+         │ + configurarMoraDiaria(int, double): void │
+         │ + calcularMora(LocalDate, LocalDate):     │
+         │   double                                  │
          |-------------------------------------------|

@@ -7,7 +7,7 @@ public class Usuario {
     private String contrasena;
 
     // Control de acceso para el usuario
-    private String tipoUsuario; //  validaremos si es *administrador*, *Maestro*, o *Estudiante*
+    private String tipoUsuario; //  validaremos si es *Administrator*, *Maestro*, o *Estudiante*
     private String estadoCuenta; // activo o bloqueado **si tiene pagos vencidos**
 
 
@@ -53,23 +53,26 @@ public class Usuario {
             // Si sos el administrador, validaremos que el nuevo rol sea uno de los 3 que existen
             if (nuevoRol.equals("Admin") || nuevoRol.equals("Maestro") || nuevoRol.equals("Estudiante")) {
 
-                this.tipoUsuario = nuevoRol; // ¡Éxito! Aplicamos el cambio al usuario.
+                this.tipoUsuario = nuevoRol; // el cambio ah sido realizado
                 System.out.println("[OK] Rol de " + this.nombreCompleto + " actualizado a " + nuevoRol);
                 return true;
             } else {
                 // El Administrator intentó poner un rol que no existe
-                System.out.println("[NO] Error: El rol '" + nuevoRol + "' no está permitido en el sistema.");
+                System.out.println("X ERROR: El sistema solo acepta los roles Admin, Maestro y Alumno '" 
+                        + nuevoRol + "' no es válido.");
+            } else {
                 return false;
             }
-        } else {
-            // **Alerta de seguridad** La persona no es el Administrator
+
+           
+            // **Alerta de seguridad** **La persona no es el Administrator**
             System.out.println("Acceso Denegado: Solo un Administrator puede cambiar los roles.");
             return false;
         }
     }
 
     /**
-     * Paso 2: Permitir al usuario cambiar su contraseña que se le  olvido
+     * Paso 2: Permitir al usuario cambiar su contraseña que se le olvidó
      * @param nuevaClave  clave temporal que se le asignara
      * @param usuarioDeControl el usuario que da clic en el boton tiene que ser un **Administrator**
      */
@@ -78,12 +81,12 @@ public class Usuario {
         // validación de la clave: ¿Tienes los permisos?
         if (usuarioDeControl.getTipoUsuario().equals("Admin")) {
 
-            this.contrasena = nuevaClave; // asigna la nueva clave (en un mundo real, aquí se encriptaría).
-            System.out.println("Contraseña de " + this.nombreCompleto + " restablecida.");
+            this.contrasena = nuevaClave; // asignará una clave temporal **Nota:en la vida real tiene que ir encriptado**
+            System.out.println("Contraseña de " + this.nombreCompleto + " restablecida");
             return true;
         } else {
             // **Alerta de seguridad** No es un Administrator
-            System.out.println("Acceso Denegado: Solo un Administrator puede restablecer las contraseñas.");
+            System.out.println("Acceso Denegado: Solo un Administrator puede restablecer las contraseñas");
             return false;
         }
     }

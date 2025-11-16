@@ -1,0 +1,78 @@
+                |---------------------------------------------------|
+                │                       USUARIO                     │
+                │---------------------------------------------------│
+                │ -idUsuario: String                                │
+                │ -nombreCompleto: String                           │
+                │ -correo: String                                   │
+                │ -contrasena: String                               │
+                │ -tipoUsuario: String                              │
+                │ -estadoCuenta: String                             │
+                |---------------------------------------------------|
+                | + getTipoUsuario(): String                        |
+                | + getEstadoCuenta(): String                       |
+                | + setEstadoCuenta(String)                         |
+                | + asignarRol(String, Usuario): boolean            |
+                | + restablecerContrasena(String, Usuario): boolean |
+                |-----------------------|---------------------------|                   
+                                      1 |
+                                        |
+                                       |N
+               |--------------------------------------------------|
+               │                      PRESTAMO                    │
+               │--------------------------------------------------│
+               | - id: int                                        |
+               | - ejemplar: Ejemplar                             |
+               | - usuario: Usuario                               |
+               | - fechaPrestamo: LocalDate                       |
+               | - fechaDevolucionPrevista: LocalDate             |
+               | - fechaDevolucionReal: LocalDate                 |
+               | - estado: String                                 |
+               | - moraAcumulada: double                          |
+               |--------------------------------------------------|
+               | + Prestamo(Ejemplar, Usuario)                    |
+               | - calcularFechaDevolucion(): LocalDate (private) |
+               | + usuarioPuedePrestar(): boolean                 |
+               | - usuarioTieneMora(): boolean                    |
+               | - usuarioAlcanzoLimite(): boolean                |
+               | + getId(): int                                   |
+               | + setId(int): void                               |
+               | + getEjemplar(): Ejemplar                        |
+               | + getUsuario(): Usuario                          |
+               | + getFechaPrestamo(): LocalDate                  |
+               | + getFechaDevolucionPrevista(): LocalDate        |
+               | + getFechaDevolucionReal(): LocalDate            |
+               | + setFechaDevolucionReal(LocalDate): void        |
+               | + getEstado(): String                            |
+               | + getMoraAcumulada(): double                     |
+               | + estaVencido(): boolean                         |
+               | + diasVencido(): long                            |
+               | + toString(): String                             |                                 
+               |------------------------|-------------------------|
+                            N |
+                              |
+                              |1
+          |------------------------------------------|
+          │                 EJEMPLAR                 │
+          │------------------------------------------│
+          │ -idEjemplar: String                      │
+          │ -idDocumento: String                     │
+          │ -codigoEjemplar: String                  │
+          │ -estado: String                          │
+          |-------------------|----------------------|
+                            N |
+                              |
+                              |1
+         |-------------------------------------------|
+         │                 DOCUMENTO                 │
+         │-------------------------------------------│
+         │ -idDocumento: String                      │
+         │ -titulo: String                           │
+         │ -autor: String                            │
+         │ -anio: int                                │
+         │ -editorial: String                        │
+         │ -categoria: String                        │
+         │ -isbn: String                             │
+         │ -idTipo: int                              │
+         │ -descripcion: String                      │
+         │ -ubicacion: String                        │
+         |-------------------------------------------|

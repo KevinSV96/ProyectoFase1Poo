@@ -1,8 +1,8 @@
--- PASO 1: CREAR LA BASE DE DATOS (Ejecutar SOLO esta línea)
+** CREAR LA BASE DE DATOS **
 CREATE DATABASE biblioteca_poo;
 GO
 
--- PASO 2: CREAR LAS TABLAS (Ejecutar este Bloque Completo)
+** CREAR LAS TABLAS **
 USE biblioteca_poo;
 GO
 
@@ -45,4 +45,5 @@ CREATE TABLE PRESTAMO (
     FOREIGN KEY (id_usuario) REFERENCES USUARIO(idUsuario),
     FOREIGN KEY (id_ejemplar) REFERENCES EJEMPLAR(idEjemplar)
 );
+
 GO

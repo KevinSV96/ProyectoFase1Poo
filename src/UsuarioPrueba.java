@@ -11,7 +11,7 @@ public class UsuarioPrueba {
         // Los usuarios sin permisos que intentarán hacer cambios
         Usuario maestroJohn = new Usuario(2, "John Maestro", "john@escuela.com", "contrama",
                 "Maestro");
-        Usuario estudianteSofia = new Usuario(3, "Sofia Estudiante", "sofia@escuela.com", "clavealum",
+        Usuario estudianteSofia = new Usuario(3, "Sofia Estudiante", "sofia@escuela.com", "claveest1",
                 "Estudiante");
 
         System.out.println("*** INICIO DE PRUEBAS DE LA CLASE USUARIO ***");
@@ -46,3 +46,4 @@ public class UsuarioPrueba {
         System.out.println("   Estado de la cuenta de John: " + maestroJohn.getEstadoCuenta());
     }
 }
+

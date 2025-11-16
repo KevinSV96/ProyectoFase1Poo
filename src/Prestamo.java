@@ -4,13 +4,14 @@ import java.time.temporal.ChronoUnit;
 public class Prestamo {
     private int id;
     private Ejemplar ejemplar;
-    private Usuario usuario; 
+    private Usuario usuario;
     private LocalDate fechaPrestamo;
     private LocalDate fechaDevolucionPrevista;
     private LocalDate fechaDevolucionReal;
     private String estado; // "ACTIVO", "DEVUELTO", "MORA"
     private double moraAcumulada;
     
+    // Constructor
     public Prestamo(Ejemplar ejemplar, Usuario usuario) {
         this.ejemplar = ejemplar;
         this.usuario = usuario;
@@ -21,7 +22,7 @@ public class Prestamo {
     }
     
     private LocalDate calcularFechaDevolucion() {
-        
+        // ADAPTADO: usa los nombres de rol de tu compañero
         int diasPrestamo = switch(usuario.getTipoUsuario()) {
             case "Maestro" -> 15;    // Profesores: 15 días
             case "Estudiante" -> 7;  // Alumnos: 7 días
@@ -31,31 +32,30 @@ public class Prestamo {
         return fechaPrestamo.plusDays(diasPrestamo);
     }
     
-    public boolean usuarioPuedePrestar() {
-        return usuario.getEstadoCuenta().equals("Activo") && 
-               !usuarioTieneMora() &&
-               !usuarioAlcanzoLimite();
+    // Método para verificar si el ejemplar está disponible (ADAPTADO)
+    private boolean ejemplarDisponible() {
+        return "Disponible".equals(ejemplar.getEstado());
     }
     
-    private boolean usuarioTieneMora() {
-        return usuario.getEstadoCuenta().equals("Bloqueado");
+    // Método para prestar ejemplar (ADAPTADO)
+    private void prestarEjemplar() {
+        ejemplar.setEstado("Prestado");
     }
     
-    private boolean usuarioAlcanzoLimite() {
-        int limite = switch(usuario.getTipoUsuario()) {
-            case "Maestro" -> 5;
-            case "Estudiante" -> 3;
-            case "Admin" -> 10;
-            default -> 1;
-        };
-        return false; // Placeholder
+    // Método para devolver ejemplar (ADAPTADO)
+    private void devolverEjemplar() {
+        ejemplar.setEstado("Disponible");
     }
     
+    // Getters y Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     
     public Ejemplar getEjemplar() { return ejemplar; }
+    public void setEjemplar(Ejemplar ejemplar) { this.ejemplar = ejemplar; }
+    
     public Usuario getUsuario() { return usuario; }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
     
     public LocalDate getFechaPrestamo() { return fechaPrestamo; }
     public LocalDate getFechaDevolucionPrevista() { return fechaDevolucionPrevista; }
@@ -68,7 +68,9 @@ public class Prestamo {
     
     public String getEstado() { return estado; }
     public double getMoraAcumulada() { return moraAcumulada; }
+    public void setMoraAcumulada(double mora) { this.moraAcumulada = mora; }
     
+    // Métodos de negocio
     public boolean estaVencido() {
         return estado.equals("ACTIVO") && LocalDate.now().isAfter(fechaDevolucionPrevista);
     }
@@ -80,7 +82,7 @@ public class Prestamo {
     
     @Override
     public String toString() {
-        return String.format("Préstamo #%d - %s para %s (Estado: %s)", 
-            id, ejemplar.getTitulo(), usuario.getNombreCompleto(), estado);
+        return String.format("Préstamo #%d - Ejemplar %s para %s (Estado: %s)", 
+            id, ejemplar.getCodigoEjemplar(), usuario.getNombreCompleto(), estado);
     }
 }

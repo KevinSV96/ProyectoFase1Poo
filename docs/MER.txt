@@ -1,7 +1,7 @@
                 |--------------------------|
                 │         USUARIO          │
                 │--------------------------│
-                │idUsuario                 │
+                │ PK idUsuario             │
                 │ nombreCompleto           │
                 │ correo                   │
                 │ contrasena               │
@@ -14,9 +14,9 @@
                |--------------------------------|
                │           PRESTAMO             │
                │--------------------------------│
-               │ id                             │
-               │ idUsuario                      │
-               │ idEjemplar                     │
+               │ PK id                          │
+               │ FK idUsuario                   │
+               │ FK idEjemplar                  │
                │ fechaPrestamo                  │
                │ fechaDevolucionPrevista        │
                │ fechaDevolucionReal            │
@@ -29,8 +29,8 @@
           |------------------------------------------|
           │                 EJEMPLAR                 │
           │------------------------------------------│
-          │ idEjemplar                               │
-          │ idDocumento                              │
+          │ PK idEjemplar                            │
+          │ PK idDocumento                           │
           │ codigoEjemplar                           │
           │ estado                                   │
           |-------------------|----------------------|
@@ -40,7 +40,7 @@
          |-------------------------------------------|
          │                 DOCUMENTO                 │
          │-------------------------------------------│
-         │ idDocumento                               │
+         │ PK idDocumento                            │
          │ titulo                                    │
          │ autor                                     │
          │ anio                                      │

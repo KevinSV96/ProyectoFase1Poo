@@ -11,10 +11,25 @@ public class GestorPrestamos {
         this.contadorId = 1;
     }
     
+    // Método auxiliar para verificar disponibilidad (ADAPTADO)
+    private boolean estaDisponible(Ejemplar ejemplar) {
+        return "Disponible".equals(ejemplar.getEstado());
+    }
+    
+    // Método auxiliar para prestar ejemplar (ADAPTADO)
+    private void prestarEjemplar(Ejemplar ejemplar) {
+        ejemplar.setEstado("Prestado");
+    }
+    
+    // Método auxiliar para devolver ejemplar (ADAPTADO)
+    private void devolverEjemplar(Ejemplar ejemplar) {
+        ejemplar.setEstado("Disponible");
+    }
+    
     public Prestamo realizarPrestamo(Ejemplar ejemplar, Usuario usuario) {
-        // Validaciones previas
-        if (!ejemplar.estaDisponible()) {
-            throw new IllegalStateException("El ejemplar no está disponible");
+        // Validaciones previas (ADAPTADO)
+        if (!estaDisponible(ejemplar)) {
+            throw new IllegalStateException("El ejemplar no está disponible. Estado actual: " + ejemplar.getEstado());
         }
         
         if (usuario.getEstadoCuenta().equals("Bloqueado")) {
@@ -25,8 +40,8 @@ public class GestorPrestamos {
         Prestamo nuevoPrestamo = new Prestamo(ejemplar, usuario);
         nuevoPrestamo.setId(contadorId++);
         
-        // Actualizar estados
-        ejemplar.prestar();
+        // Actualizar estados (ADAPTADO)
+        prestarEjemplar(ejemplar);
         prestamos.add(nuevoPrestamo);
         
         return nuevoPrestamo;
@@ -36,8 +51,9 @@ public class GestorPrestamos {
         Prestamo prestamo = buscarPrestamo(idPrestamo);
         if (prestamo != null) {
             prestamo.setFechaDevolucionReal(LocalDate.now());
-            prestamo.getEjemplar().devolver();
-            System.out.println("   [DEBUG] Préstamo #" + idPrestamo + " marcado como devuelto");
+            // Actualizar estado del ejemplar (ADAPTADO)
+            devolverEjemplar(prestamo.getEjemplar());
+            System.out.println("   [DEBUG] Préstamo #" + idPrestamo + " devuelto. Ejemplar ahora: " + prestamo.getEjemplar().getEstado());
         } else {
             throw new IllegalArgumentException("Préstamo no encontrado: #" + idPrestamo);
         }
@@ -60,5 +76,12 @@ public class GestorPrestamos {
     // Método para ver todos los préstamos
     public List<Prestamo> getTodosLosPrestamos() {
         return new ArrayList<>(prestamos);
+    }
+    
+    // Método para buscar préstamos por usuario
+    public List<Prestamo> getPrestamosPorUsuario(int idUsuario) {
+        return prestamos.stream()
+            .filter(p -> p.getUsuario().getIdUsuario() == idUsuario)
+            .collect(Collectors.toList());
     }
 }
